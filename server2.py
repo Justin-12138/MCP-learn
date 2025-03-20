@@ -1,7 +1,8 @@
 from typing import Any
 import httpx
 from mcp.server.fastmcp import FastMCP
-from mcp import tool, McpError
+from mcp.server.fastmcp import FastMCP
+from mcp import McpError
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 import httpx
@@ -19,14 +20,7 @@ mcp = FastMCP("weather")
 
 @mcp.tool(
     name="get_weather",
-    description="获取中国城市天气预报",
-    args_schema={
-        "type": "object",
-        "properties": {
-            "city": {"type": "string", "description": "城市名称（中文）"}
-        },
-        "required": ["city"]
-    }
+    description="获取中国城市天气预报"
 )
 async def get_weather(args: dict):
     """天气查询工具实现"""
@@ -63,4 +57,5 @@ async def get_weather(args: dict):
 
 
 if __name__ == "__main__":
-    mcp.run()
+    # Initialize and run the server
+    mcp.run(transport='stdio')
